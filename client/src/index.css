@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cyber-background text-cyber-text font-sans antialiased overflow-x-hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  /* ── Glassmorphism ─────────────────────────────────────────── */
+  .glass-panel {
+    @apply bg-cyber-panel/60 backdrop-blur-md border border-white/10 shadow-lg;
+  }
+
+  .glass-panel-neon {
+    @apply bg-cyber-panel/60 backdrop-blur-md border border-cyber-primary/30 shadow-neon-blue;
+  }
+
+  /* ── Text Glow ─────────────────────────────────────────────── */
+  .text-glow-primary {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.3);
+  }
+
+  .text-glow-secondary {
+    text-shadow: 0 0 10px rgba(112, 0, 255, 0.7), 0 0 20px rgba(112, 0, 255, 0.3);
+  }
+
+  .text-glow-danger {
+    text-shadow: 0 0 10px rgba(255, 0, 60, 0.7), 0 0 20px rgba(255, 0, 60, 0.3);
+  }
+
+  /* ── Cyber Grid Background ─────────────────────────────────── */
+  .bg-cyber-grid {
+    background-image:
+      linear-gradient(rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* ── Holographic shimmer ───────────────────────────────────── */
+  .holographic {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 240, 255, 0.1) 0%,
+      rgba(112, 0, 255, 0.1) 50%,
+      rgba(255, 0, 60, 0.1) 100%
+    );
+    background-size: 200% 200%;
+    animation: holographic-shift 4s ease infinite;
+  }
+
+  @keyframes holographic-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ── Neon pulse border ─────────────────────────────────────── */
+  .neon-border-pulse {
+    animation: neon-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes neon-pulse {
+    0%, 100% { box-shadow: 0 0 5px rgba(0, 240, 255, 0.3), 0 0 10px rgba(0, 240, 255, 0.2); }
+    50% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.6), 0 0 30px rgba(0, 240, 255, 0.4); }
+  }
+
+  /* ── Danger pulse ──────────────────────────────────────────── */
+  .danger-pulse {
+    animation: danger-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes danger-pulse {
+    0%, 100% { box-shadow: 0 0 5px rgba(255, 0, 60, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 0, 60, 0.7), 0 0 40px rgba(255, 0, 60, 0.3); }
+  }
+
+  /* ── Scan line animation ───────────────────────────────────── */
+  @keyframes scan-line {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  .scan-line {
+    animation: scan-line 3s linear infinite;
+  }
+
+  /* ── Shimmer ───────────────────────────────────────────────── */
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* ── Custom scrollbar ──────────────────────────────────────── */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-cyber-background;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cyber-primary/40 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-cyber-primary/70;
+  }
+
+  /* ── Selection ─────────────────────────────────────────────── */
+  ::selection {
+    background: rgba(0, 240, 255, 0.2);
+    color: #00f0ff;
+  }
+
+  /* ── Focus ring ────────────────────────────────────────────── */
+  :focus-visible {
+    outline: 2px solid rgba(0, 240, 255, 0.5);
+    outline-offset: 2px;
+  }
+}

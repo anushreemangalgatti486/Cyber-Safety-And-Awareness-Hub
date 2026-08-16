@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: cybershield_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  backend:
+    build: 
+      context: ./server
+    container_name: cybershield_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongodb:27017/cybershield
+      - CLIENT_URL=http://localhost:80
+      # Add other environment variables from .env here in production
+      - JWT_SECRET=${JWT_SECRET:-default_jwt_secret_for_dev}
+      - JWT_EXPIRES_IN=1h
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-default_refresh_secret_for_dev}
+      - JWT_REFRESH_EXPIRES_IN=7d
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  frontend:
+    build: 
+      context: ./client
+    container_name: cybershield_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:

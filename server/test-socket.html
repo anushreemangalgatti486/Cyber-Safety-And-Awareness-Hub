@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CyberShield Alert Test</title>
+</head>
+
+<body>
+
+    <h1>CyberShield Real-Time Alerts</h1>
+
+    <button onclick="sendAlert()">
+        Send Cyber Alert
+    </button>
+
+    <h2 id="alertBox"></h2>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+    <script>
+        const socket = io("http://localhost:5000");
+
+        // Receive alert
+        socket.on("receive_alert", (data) => {
+            document.getElementById("alertBox").innerText =
+                "⚠ ALERT: " + data.message;
+        });
+
+        // Send alert
+        function sendAlert() {
+            socket.emit("send_alert", {
+                message: "New UPI scam detected. Stay alert!"
+            });
+        }
+    </script>
+
+</body>
+
+</html>
